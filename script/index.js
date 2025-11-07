@@ -1,3 +1,8 @@
+const createElements = (arr) => {
+  const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlElements.join(" ");
+};
+
 const loadlessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -35,7 +40,9 @@ const displayWordDetails = (word) => {
   
    <div>
             <h2 class="text-2xl font-bold">
-              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> : ${word.pronunciation})
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> : ${
+    word.pronunciation
+  })
             </h2>
           </div>
           <div>
@@ -46,11 +53,9 @@ const displayWordDetails = (word) => {
             <h2 class="font-bold">Example</h2>
             <p class="">${word.sentence}</p>
           </div>
-          <div>
-            <h2 class="font-bold">Synonym</h2>
-            <span class="btn">Syn1</span>
-            <span class="btn">Syn2</span>
-            <span class="btn">Syn2</span>
+          <div class="">
+            <h2 class="font-bold">Synonym / সমার্থক শব্দ গুলো</h2>
+           <div class="">${createElements(word.synonyms)}</div>
           </div>
   
   `;
