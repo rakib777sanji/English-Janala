@@ -1,5 +1,7 @@
 const createElements = (arr) => {
-  const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  const htmlElements = arr.map(
+    (el) => `<span class="btn hover:bg-teal-300">${el}</span>`
+  );
   return htmlElements.join(" ");
 };
 
@@ -157,3 +159,19 @@ const displayLesson = (lessons) => {
 };
 
 loadlessons();
+
+document.getElementById("btn-search").addEventListener("click", () => {
+  removeActive();
+  const input = document.getElementById("input-search");
+  const searchValue = input.value.trim().toLocaleLowerCase();
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((res) => res.json())
+    .then((data) => {
+      const allWords = data.data;
+      console.log(allWords);
+      const filterWords = allWords.filter((word) =>
+        word.word.toLocaleLowerCase().includes(searchValue)
+      );
+      displayLevelWord(filterWords);
+    });
+});
